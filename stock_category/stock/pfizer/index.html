@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styles.css">
+<title>Pfizer (Ticker: PFE) Stock Overview</title>
+</head>
+<body>
+<header>
+<h1>Pfizer (Ticker: PFE)</h1>
+</header>
+<main>
+<section class="overview">
+<h2>Company Overview</h2>
+<p>Pfizer is a global pharmaceutical company that develops medicines, vaccines, and consumer healthcare products. It is known for its COVID-19 vaccine and a wide range of treatments across multiple therapeutic areas.</p>
+</section>
+
+<section class="current-stock">
+<h2>Current Stock Price</h2>
+<p>Price: $<span id="price">Loading...</span></p>
+<p>Market Cap: $<span id="market-cap">Loading...</span></p>
+<p>PE Ratio: <span id="pe-ratio">Loading...</span></p>
+<p>Dividend Yield: <span id="dividend">Loading...</span></p>
+</section>
+
+<section class="charts">
+<h2>Charts</h2>
+<h3>1-Month Price Chart</h3>
+<img id="chart-1m" src="" alt="1-Month Price Chart" style="max-width:100%">
+<h3>1-Year Performance Chart</h3>
+<img id="chart-1y" src="" alt="1-Year Performance Chart" style="max-width:100%">
+<h3>5-Year Performance Chart</h3>
+<img id="chart-5y" src="" alt="5-Year Performance Chart" style="max-width:100%">
+</section>
+
+<section class="analyst-ratings">
+<h2>Analyst Ratings</h2>
+<p>Average Rating: <span id="analyst-rating">Loading...</span></p>
+<p>Analyst Price Target: $<span id="price-target">Loading...</span></p>
+</section>
+
+<section class="key-financials">
+<h2>Key Financials</h2>
+<p>Revenue: $<span id="revenue">Loading...</span></p>
+<p>Net Income: $<span id="net-income">Loading...</span></p>
+<p>EPS: $<span id="eps">Loading...</span></p>
+</section>
+</main>
+
+<footer>
+<p><a href="https://www.pfizer.com">www.pfizer.com</a></p>
+</footer>
+
+<script>
+fetch('/stock/pfizer')
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('price').textContent = data.price ?? 'N/A';
+    document.getElementById('market-cap').textContent = data.market_cap ?? 'N/A';
+    document.getElementById('pe-ratio').textContent = data.pe_ratio ?? 'N/A';
+    document.getElementById('dividend').textContent = data.dividend ?? '-';
+    document.getElementById('analyst-rating').textContent = data.analyst_rating ?? 'N/A';
+    document.getElementById('price-target').textContent = data.price_target ?? 'N/A';
+    document.getElementById('revenue').textContent = data.revenue ?? 'N/A';
+    document.getElementById('net-income').textContent = data.net_income ?? 'N/A';
+    document.getElementById('eps').textContent = data.eps ?? 'N/A';
+    document.getElementById('chart-1m').src = data.chart_1m + '?t=' + Date.now();
+    document.getElementById('chart-1y').src = data.chart_1y + '?t=' + Date.now();
+    document.getElementById('chart-5y').src = data.chart_5y + '?t=' + Date.now();
+  })
+  .catch(err => console.error('Error:', err));
+</script>
+</body>
+</html>
